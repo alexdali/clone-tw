@@ -17,6 +17,10 @@ function Avatar({ hash }) {
 	);
 }
 
+Avatar.propTypes = {
+	hash: PropTypes.string
+};
+
 const Time = ({ time }) => {
 	const timeString = moment(time).fromNow();
 	return (
@@ -24,6 +28,10 @@ const Time = ({ time }) => {
 			{timeString}
 		</span>
 	);
+};
+
+Time.propTypes = {
+	time: PropTypes.string
 };
 
 const ReplyButton = () => (
@@ -61,6 +69,10 @@ const RetweetButton = ({ count }) => (
 	</span>
 );
 
+RetweetButton.propTypes = {
+	count: PropTypes.number
+};
+
 const LikeButton = ({ count }) => (
 	<span className = 'like-button'>
 		<i className = 'fa fa-heart' />
@@ -71,6 +83,10 @@ const LikeButton = ({ count }) => (
 		}
 	</span>
 );
+
+LikeButton.propTypes = {
+	count: PropTypes.number
+};
 
 const MoreOptionsButton = () => (
 	<i className = 'fa fa-ellipsis-h more-options-button' />
@@ -84,6 +100,10 @@ function Message ({ text }) {
 	);
 }
 
+Message.propTypes = {
+	text: PropTypes.string
+};
+
 function NameWithHandle({ author }) {
 	const { name, handle } = author;
 	return (
@@ -94,6 +114,13 @@ function NameWithHandle({ author }) {
 		</span>
 	);
 }
+
+NameWithHandle.propTypes = {
+	author: PropTypes.shape({
+			name: PropTypes.string.isRequired,
+			handle: PropTypes.string.isRequired
+		}).isRequired
+};
 
 function Comment ({ author, message, likes }) {
 	return (
@@ -132,15 +159,26 @@ function Tweet({ tweet }) {
 	);
 }
 
+Tweet.propTypes = {
+	tweet: PropTypes.shape({
+			message: PropTypes.string,
+			gravatar: PropTypes.string.isRequired,
+			author: PropTypes.object.isRequired,
+			likes: PropTypes.number,
+			retweets: PropTypes.number,
+			timestamp: PropTypes.string
+		}).isRequired
+};
+
 var testTweet = {
 	message: 'Something about cats.',
 	gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
 	author: {
-		handle: 'catperson',
+		handle: 'catMark',
 		name: 'IAMA Cat Person'
 	},
-	likes: 0,
-	retweets: 0,
+	likes: 5,
+	retweets: 2,
 	timestamp: '2016-07-30 21:24:37'
 };
 
