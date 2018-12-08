@@ -1,7 +1,13 @@
+.tweets {
+width: 664px;
+padding: 10px;
+margin: auto;
+}
 .tweet {
 border: 1px solid #ccc;
 width: 564px;
 min-height: 68px;
+margin: 10px;
 padding: 10px;
 display: flex;
 font-family: "Helvetica", arial, sans-serif;

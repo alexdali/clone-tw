@@ -140,9 +140,33 @@ Comment.propTypes = {
 	likes: PropTypes.number
 }
 
-function Tweet({ tweet }) {
-	const { gravatar, message, author, timestamp, retweets, likes } = tweet;
+function IconButton({ children }) {
 	return (
+		<button>
+			<i className="target-icon"/>
+			{children}
+		</button>
+	);
+}
+
+function WarningButton({ children }) {
+	return (
+		<button type="button" className="btn btn-danger">
+				{children}
+		</button>
+	);
+}
+
+function ManyButtons({ children }) {
+	return <div  class="alert alert-primary" role="alert">
+			React.Children.only({children})
+		</div>
+}
+
+const Tweet = ({ tweet }) => {
+	const { gravatar, message, author, timestamp, retweets, likes, onClickCount } = tweet;
+	return (
+		<>
 		<div className="tweet">
 			<Avatar hash = {gravatar}/>
 			<div className = 'content'>
@@ -151,11 +175,12 @@ function Tweet({ tweet }) {
 				<div className = 'buttons'>
 					<ReplyButton />
 					<RetweetButton count = {retweets}/>
-					<LikeButton count = {likes}/>
+					<LikeButton onClick = {onClickCount} count = {likes}/>
 					<MoreOptionsButton />
 				</div>
 			</div>
 		</div>
+		</>
 	);
 }
 
@@ -170,17 +195,114 @@ Tweet.propTypes = {
 		}).isRequired
 };
 
-var testTweet = {
-	message: 'Something about cats.',
-	gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
-	author: {
-		handle: 'catMark',
-		name: 'IAMA Cat Person'
-	},
-	likes: 5,
-	retweets: 2,
-	timestamp: '2016-07-30 21:24:37'
+function TweetFeed({ tweets }) {
+	//const { gravatar, message, author, timestamp, retweets, likes } = tweet;
+	return (
+		<>
+		<div className="tweets">
+			{tweets.map(tweet =>(
+					<Tweet key = {tweet.id} tweet = {tweet}/>
+				))} 
+		</div>
+		<div>
+			<WarningButton>
+				Something has gone wrong
+			</WarningButton>
+		</div>
+		<IconButton>Do The Thing</IconButton>
+		{/*
+			<div>
+					<ManyButtons>
+						<button type="button" class="btn btn-primary">Primary</button>
+						<button type="button" class="btn btn-secondary">Secondary</button>
+						<button type="button" class="btn btn-success">Success</button>
+						<button type="button" class="btn btn-danger">Danger</button>
+						<button type="button" class="btn btn-warning">Warning</button>
+						<button type="button" class="btn btn-info">Info</button>
+						<button type="button" class="btn btn-light">Light</button>
+						<button type="button" class="btn btn-dark">Dark</button>
+					</ManyButtons>
+				</div>
+				*/}
+		</>
+	);
+}
+
+TweetFeed.propTypes = {
+	tweet: PropTypes.array.isRequired
+	/// tweet: PropTypes.shape({
+	// 		message: PropTypes.string,
+	// 		gravatar: PropTypes.string.isRequired,
+	// 		author: PropTypes.object.isRequired,
+	// 		likes: PropTypes.number,
+	// 		retweets: PropTypes.number,
+	// 		timestamp: PropTypes.string
+	// 	}).isRequired
 };
 
-ReactDOM.render(<Tweet tweet = {testTweet}/>,
+
+var testTweet = [
+	{
+		id: 1,
+		message: 'Something about cats.',
+		gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
+		author: {
+			handle: 'catMark',
+			name: 'IAMA Cat Person'
+			},
+		likes: 5,
+		retweets: 2,
+		timestamp: '2016-07-30 21:24:37'
+	},
+	{
+		id: 2,
+		message: 'Something about cats.',
+		gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
+		author: {
+			handle: 'catMark',
+			name: 'IAMA Cat Person'
+			},
+		likes: 5,
+		retweets: 2,
+		timestamp: '2016-07-30 21:24:37'
+	},
+	{
+		id: 3,
+		message: 'Something about cats.',
+		gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
+		author: {
+			handle: 'catMark',
+			name: 'IAMA Cat Person'
+			},
+		likes: 5,
+		retweets: 2,
+		timestamp: '2016-07-30 21:24:37'
+	},
+	{
+		id: 4,
+		message: 'Something about cats.',
+		gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
+		author: {
+			handle: 'catMark',
+			name: 'IAMA Cat Person'
+			},
+		likes: 5,
+		retweets: 2,
+		timestamp: '2016-07-30 21:24:37'
+	},
+	{
+		id: 5,
+		message: 'Something about cats.',
+		gravatar: 'https://image.freepik.com/free-vector/a-boy-getting-a-cold-feet_1308-17766.jpg',
+		author: {
+			handle: 'catMark',
+			name: 'IAMA Cat Person'
+			},
+		likes: 5,
+		retweets: 2,
+		timestamp: '2016-07-30 21:24:37'
+	}
+];
+
+ReactDOM.render(<TweetFeed tweets = {testTweet}/>,
 document.querySelector('#root'));
