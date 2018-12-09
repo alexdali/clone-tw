@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+import { Layout } from './sidebar';
+import { ErrorCatcher, LifecycleDemo } from './lifecycledemo';
+import { TrickInput, EasyInput, RefInput } from './inputdemo';
+
 import './index.css';
 
 function Avatar({ hash }) {
@@ -304,5 +308,24 @@ var testTweet = [
 	}
 ];
 
-ReactDOM.render(<TweetFeed tweets = {testTweet}/>,
-document.querySelector('#root'));
+
+const AppInput = () => (
+		<div>
+			<TrickInput/>
+			<EasyInput/>
+			<RefInput/>
+		</div>
+);
+
+
+
+
+/// ReactDOM.render(
+// <ErrorCatcher>
+// 	<LifecycleDemo/>
+// </ErrorCatcher>, document.querySelector('#root'));
+
+
+///ReactDOM.render(<AppInput/>, document.querySelector('#root'));
+
+ReactDOM.render(<TweetFeed tweets = {testTweet}/>,document.querySelector('#root'));
